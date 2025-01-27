@@ -1,5 +1,4 @@
-﻿using KEΠ_2H_ERGASIA.Db;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -18,22 +17,17 @@ namespace KEΠ_2H_ERGASIA
             InitializeComponent();
         }
 
-        private async void button2_Click(object sender, EventArgs e)
+        private void button2_Click(object sender, EventArgs e)
         {
 
-            this.Close();
-        }
-
-        private void maskedTextBox1_MaskInputRejected(object sender, MaskInputRejectedEventArgs e)
-        {
-
+            Close();
         }
 
         private async void button1_Click(object sender, EventArgs e)
         {
-            if (!long.TryParse(maskedTextBox1.Text, out var phoneNumber) || !await DbManager.DeleteRequest(phoneNumber))
+            if (!Guid.TryParse(textBox1.Text, out var phoneNumber) || !await DbManager.DeleteRequest(phoneNumber))
                 return;
-            this.Close();
+            Close();
         }
     }
 }
