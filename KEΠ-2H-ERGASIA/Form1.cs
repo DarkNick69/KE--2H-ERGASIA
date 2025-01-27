@@ -1,5 +1,4 @@
-﻿using KEΠ_2H_ERGASIA.Db;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -12,23 +11,24 @@ using System.Windows.Forms;
 namespace KEΠ_2H_ERGASIA
 {
     public partial class Main : Form
-    {        public Main()
+    {    
+        public Main()
         {
             InitializeComponent();
         }
 
         private void button5_Click(object sender, EventArgs e)
         {
-            this.Close();
+            Close();
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            this.Hide();
-            AddInfo addInfo = new AddInfo();
+            Hide();
+            var addInfo = new AddInfo();
             addInfo.ShowDialog();
-            addInfo = null;
-            this.Show();
+            addInfo.Dispose();
+            Show();
             
         }
 
@@ -41,38 +41,38 @@ namespace KEΠ_2H_ERGASIA
 
         private void button2_Click(object sender, EventArgs e)
         {
-            this.Hide();
+            Hide();
             ShowReqs showReqs = new ShowReqs();
             showReqs.ShowDialog();
-            showReqs = null;
+            showReqs.Dispose();
             this.Show();
         }
 
         private void button3_Click(object sender, EventArgs e)
         {
-            this.Hide();
+            Hide();
             DeleteReqs deleteReqs = new DeleteReqs();
             deleteReqs.ShowDialog();
-            deleteReqs = null;
+            deleteReqs.Dispose();
             this.Show();
         }
 
         private void button4_Click(object sender, EventArgs e)
         {
-            this.Hide();
+            Hide();
             EditReqs editReqs = new EditReqs();
             editReqs.ShowDialog();
-            editReqs = null;
-            this.Show();
+            editReqs.Dispose();
+            Show();
         }
 
         private void button7_Click(object sender, EventArgs e)
         {
-            this.Hide();
+            Hide();
             SearchInfo searchInfo = new SearchInfo();
             searchInfo.ShowDialog();
-            searchInfo = null;
-            this.Show();
+            searchInfo.Dispose();
+            Show();
         }
     }
 }
