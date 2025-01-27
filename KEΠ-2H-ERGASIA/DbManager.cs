@@ -2,7 +2,8 @@
 using System.Data.SQLite;
 using System.Threading.Tasks;
 using Dapper;
-namespace KEΠ_2H_ERGASIA.Db
+
+namespace KEΠ_2H_ERGASIA
 {
 
     public static class DbManager
@@ -21,7 +22,7 @@ namespace KEΠ_2H_ERGASIA.Db
                                                FormId TEXT PRIMARY KEY,
                                                Name TEXT NOT NULL,
                                                Email Text NOT NULL,
-                                               PhoneNumber BIGINT Unique,
+                                               PhoneNumber BIGINT NOT NULL,
                                                Birthday TEXT NOT NULL,
                                                RequestType TEXT NOT NULL,
                                                Address TEXT NOT NULL,
@@ -35,39 +36,47 @@ namespace KEΠ_2H_ERGASIA.Db
         public static async Task InsertRequest(Request request)
         {
             if (!_initialized)
-            {
                 await InitDb();
-            }
-
-            const string insertQuery = @"
-                INSERT INTO Requests(FormId, Name, Email, PhoneNumber, Birthday, RequestType, Address, SubmissionTime)
-                VALUES(@FormId, @Name, @Email, @PhoneNumber, @Birthday, @RequestType, @Address, @SubmissionTime)";
-            await Conn.ExecuteAsync(insertQuery, new { FormId = Guid.NewGuid(), request.Name, request.Email, request.PhoneNumber, request.Birthday,
-                request.RequestType, request.Address, request.SubmissionTime });
-        }
-
-        public static async Task<bool> DeleteRequest(long phoneNumber)
-        {
+            
             if (!_initialized)
             {
                 await InitDb();
             }
-            const string deleteQuery = @"DELETE FROM Requests WHERE PhoneNumber = @PhoneNumber";
-            return (await Conn.ExecuteAsync(deleteQuery, new { PhoneNumber = phoneNumber })) != 0;
+
+            
+            const string insertQuery = @"
+                INSERT INTO Requests(FormId, Name, Email, PhoneNumber, Birthday, RequestType, Address, SubmissionTime)
+                VALUES(@FormId, @Name, @Email, @PhoneNumber, @Birthday, @RequestType, @Address, @SubmissionTime)";
+            await Conn.ExecuteAsync(insertQuery, new { FormId = request.FormId.ToString(), request.Name, request.Email, request.PhoneNumber, request.Birthday,
+                request.RequestType, request.Address, request.SubmissionTime });
+        }
+
+        public static async Task<(bool found, Request request)> GetRequest(Guid requestId)
+        {
+            if (!_initialized)
+                await InitDb();
+            
+            const string getQuery = @"SELECT * FROM Requests WHERE FormId = @FormId";
+            
+            var result = await Conn.QuerySingleOrDefaultAsync<Request>(getQuery, new { FormId = requestId.ToString() });
+            return (result != null, result);
         }
 
         public sealed class Request
         {
-            public string Name;
-            public string Email;
-            public long PhoneNumber;
-            public string Birthday;
-            public string RequestType;
-            public string Address;
-            public string SubmissionTime;
+            public  Guid FormId;
+            public  string Name;
+            public  string Email;
+            public  long PhoneNumber;
+            public  string Birthday;
+            public  string RequestType;
+            public  string Address;
+            public  string SubmissionTime;
 
-            public Request(string name,string email, long phoneNumber, string birthday, string requestType, string address, string submissionTime)
+            
+            internal Request(string formId, string name,string email, long phoneNumber, string birthday, string requestType, string address, string submissionTime)
             {
+                FormId = Guid.Parse(formId);
                 Name = name;
                 Email = email;
                 PhoneNumber = phoneNumber;
@@ -76,8 +85,17 @@ namespace KEΠ_2H_ERGASIA.Db
                 Address = address;
                 SubmissionTime = submissionTime;
             }
-            
-                
+            public Request(Guid formId, string name,string email, long phoneNumber, string birthday, string requestType, string address, string submissionTime)
+            {
+                FormId = formId;
+                Name = name;
+                Email = email;
+                PhoneNumber = phoneNumber;
+                Birthday = birthday;
+                RequestType = requestType;
+                Address = address;
+                SubmissionTime = submissionTime;
+            }
         }
     }
 }
