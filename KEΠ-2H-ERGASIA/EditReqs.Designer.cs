@@ -69,7 +69,7 @@
             // 
             this.maskedTextBox1.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.maskedTextBox1.Location = new System.Drawing.Point(445, 144);
-            this.maskedTextBox1.Mask = "000-0000000";
+            this.maskedTextBox1.Mask = "600-0000000";
             this.maskedTextBox1.Name = "maskedTextBox1";
             this.maskedTextBox1.Size = new System.Drawing.Size(284, 22);
             this.maskedTextBox1.TabIndex = 1;

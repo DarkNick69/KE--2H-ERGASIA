@@ -1,11 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using KEΠ_2H_ERGASIA.Db;
+using System;
 using System.Windows.Forms;
 
 namespace KEΠ_2H_ERGASIA
@@ -15,44 +9,38 @@ namespace KEΠ_2H_ERGASIA
         public AddInfo()
         {
             InitializeComponent();
+            SubmissionTimeTextBox.Text = DateTime.Now.ToString("dd/MM/yy/HH:MM");
+            PhoneTextBox.Text = "6";
         }
 
-        private void textBox1_TextChanged(object sender, EventArgs e)
-        {
-
-        }
 
         private void button2_Click(object sender, EventArgs e)
         {
             this.Close();
         }
 
-        private void textBox6_TextChanged(object sender, EventArgs e)
-        {
 
+        private async void button1_Click(object sender, EventArgs e)
+        {
+            if (NameTextBox.Text == String.Empty || EmailTextBox.Text == String.Empty || PhoneTextBox.Text == String.Empty
+                || !long.TryParse(PhoneTextBox.Text, out var phoneNumber) || phoneNumber >= 1_000_000_000 ||
+                phoneNumber < 100_000_000 ||BirthdayTextBox.Text == String.Empty || TypeTextBox.Text == String.Empty || AddressTextbox.Text == String.Empty)
+                return;
+
+            var request = new DbManager.Request(NameTextBox.Text,
+                EmailTextBox.Text,
+                phoneNumber,
+                BirthdayTextBox.Text,
+                TypeTextBox.Text,
+                AddressTextbox.Text,
+                SubmissionTimeTextBox.Text);
+
+            await DbManager.InsertRequest(request);
+            
+            this.Close();
         }
 
-        private void textBox5_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void textBox4_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void textBox3_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void textBox7_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void textBox2_TextChanged(object sender, EventArgs e)
+        private void PhoneTextBox_TextChanged(object sender, EventArgs e)
         {
 
         }
