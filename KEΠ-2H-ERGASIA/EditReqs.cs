@@ -8,8 +8,6 @@ namespace KEΠ_2H_ERGASIA
 
         private DbManager.Request _request;
 
-        private bool _updating;
-        
         public EditReqs()
         {
             InitializeComponent();
@@ -45,12 +43,17 @@ namespace KEΠ_2H_ERGASIA
 
         private async void button4_Click(object sender, EventArgs e)
         {
-            if (_updating || NameTextBox.Text == String.Empty || EmailTextBox.Text == String.Empty || TelephoneTextBox.Text == String.Empty
+            button4.Enabled = false;
+            if (NameTextBox.Text == String.Empty || EmailTextBox.Text == String.Empty ||
+                TelephoneTextBox.Text == String.Empty
                 || !long.TryParse(TelephoneTextBox.Text, out var phoneNumber) || phoneNumber > 9_999_999_999 ||
-                phoneNumber < 1_000_000_000  ||BirthdayTextBox.Text == String.Empty || RequestTypeTextBox.Text == String.Empty || AddressTextBox.Text == String.Empty)
+                phoneNumber < 1_000_000_000 || BirthdayTextBox.Text == String.Empty ||
+                RequestTypeTextBox.Text == String.Empty || AddressTextBox.Text == String.Empty)
+            {
+                button4.Enabled = true;
                 return;
+            }
             
-            _updating = true;
             
             _request.Name = NameTextBox.Text;
             _request.Email = EmailTextBox.Text;

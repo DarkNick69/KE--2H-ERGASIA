@@ -6,7 +6,6 @@ namespace KEΠ_2H_ERGASIA
     public partial class AddInfo : Form
     {
         private Guid _id = Guid.NewGuid();
-        private bool _inserting;
         public AddInfo()
         {
             InitializeComponent();
@@ -23,10 +22,16 @@ namespace KEΠ_2H_ERGASIA
 
         private async void button1_Click(object sender, EventArgs e)
         {
-            if (_inserting || NameTextBox.Text == String.Empty || EmailTextBox.Text == String.Empty || PhoneTextBox.Text == String.Empty
+            button1.Enabled = false;
+            if (NameTextBox.Text == String.Empty || EmailTextBox.Text == String.Empty ||
+                PhoneTextBox.Text == String.Empty
                 || !long.TryParse(PhoneTextBox.Text, out var phoneNumber) || phoneNumber > 9_999_999_999 ||
-                phoneNumber < 1_000_000_000  ||BirthdayTextBox.Text == String.Empty || TypeTextBox.Text == String.Empty || AddressTextbox.Text == String.Empty)
+                phoneNumber < 1_000_000_000 || BirthdayTextBox.Text == String.Empty ||
+                TypeTextBox.Text == String.Empty || AddressTextbox.Text == String.Empty)
+            {
+                button1.Enabled = true;
                 return;
+            }
 
             _inserting = true;
 
