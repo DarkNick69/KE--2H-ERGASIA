@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
 
@@ -14,7 +15,8 @@ namespace KEΠ_2H_ERGASIA
             InitializeComponent();
             SubmissionTimeTextBox.Text = DateTime.Now.ToString("dd/MM/yy/HH:MM");
             PhoneTextBox.Text = "6";
-            IdTextBox.Text = _id.ToString();    
+            IdTextBox.Text = _id.ToString();
+            dateTimePicker1.MaxDate = DateTime.Now;
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -29,7 +31,7 @@ namespace KEΠ_2H_ERGASIA
             if (NameTextBox.Text == String.Empty || EmailTextBox.Text == String.Empty || !_emailRegex.IsMatch(EmailTextBox.Text) ||
                 PhoneTextBox.Text == String.Empty
                 || !long.TryParse(PhoneTextBox.Text, out var phoneNumber) || phoneNumber > 9_999_999_999 ||
-                phoneNumber < 1_000_000_000 || BirthdayTextBox.Text == String.Empty ||
+                phoneNumber < 1_000_000_000 ||
                 TypeTextBox.Text == String.Empty || AddressTextbox.Text == String.Empty)
             {
                 MessageBox.Show("Τα στοιχεία εγγραφής είναι λάθος. Παρακαλώ συμπληρώστε ξανά.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -42,7 +44,7 @@ namespace KEΠ_2H_ERGASIA
                 NameTextBox.Text,
                 EmailTextBox.Text,
                 phoneNumber,
-                BirthdayTextBox.Text,
+                dateTimePicker1.Text,
                 TypeTextBox.Text,
                 AddressTextbox.Text,
                 SubmissionTimeTextBox.Text);
