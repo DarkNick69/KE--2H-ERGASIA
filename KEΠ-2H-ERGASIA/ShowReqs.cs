@@ -1,11 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace KEΠ_2H_ERGASIA
@@ -26,7 +21,7 @@ namespace KEΠ_2H_ERGASIA
 
         private void radioButton2_CheckedChanged(object sender, EventArgs e)
         {
-            if (radioButton2.Checked) 
+            if (radioButton2.Checked)
             {
                 textBox1.Enabled = true;
                 textBox1.Visible = true;
@@ -44,12 +39,33 @@ namespace KEΠ_2H_ERGASIA
                 label2.Visible = false;
                 label2.Enabled = false;
             }
-        
+
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private async void button1_Click(object sender, EventArgs e)
+        {
+            IEnumerable<DbManager.Request> requests;
+            if (radioButton1.Checked)
+            {
+                requests = await DbManager.GetAllRequests();
+               
+            } else
+            {
+                requests = await DbManager.GetRequestsByName(textBox1.Text);
+            }
+
+            richTextBox1.Text = string.Empty;
+
+            foreach (var request in requests)
+            {
+                richTextBox1.Text += request.ToString();
+                richTextBox1.Text += "\n-----\n";
+            }
         }
     }
 }

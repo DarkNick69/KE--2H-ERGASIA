@@ -88,12 +88,14 @@
             this.button1.TabIndex = 3;
             this.button1.Text = "Search";
             this.button1.UseVisualStyleBackColor = false;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // richTextBox1
             // 
             this.richTextBox1.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.richTextBox1.Location = new System.Drawing.Point(315, 342);
             this.richTextBox1.Name = "richTextBox1";
+            this.richTextBox1.ReadOnly = true;
             this.richTextBox1.Size = new System.Drawing.Size(551, 232);
             this.richTextBox1.TabIndex = 4;
             this.richTextBox1.Text = "";

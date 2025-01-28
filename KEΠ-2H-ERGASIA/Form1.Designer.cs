@@ -38,7 +38,6 @@
             this.button5 = new System.Windows.Forms.Button();
             this.button6 = new System.Windows.Forms.Button();
             this.button7 = new System.Windows.Forms.Button();
-            this.button8 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -144,7 +143,7 @@
             // 
             this.button7.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.button7.BackColor = System.Drawing.Color.Green;
-            this.button7.Location = new System.Drawing.Point(488, 308);
+            this.button7.Location = new System.Drawing.Point(586, 309);
             this.button7.Name = "button7";
             this.button7.Size = new System.Drawing.Size(150, 100);
             this.button7.TabIndex = 9;
@@ -152,24 +151,12 @@
             this.button7.UseVisualStyleBackColor = false;
             this.button7.Click += new System.EventHandler(this.button7_Click);
             // 
-            // button8
-            // 
-            this.button8.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.button8.BackColor = System.Drawing.Color.MediumSlateBlue;
-            this.button8.Location = new System.Drawing.Point(686, 308);
-            this.button8.Name = "button8";
-            this.button8.Size = new System.Drawing.Size(150, 100);
-            this.button8.TabIndex = 10;
-            this.button8.Text = "Εξαγωγή αίτησης";
-            this.button8.UseVisualStyleBackColor = false;
-            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
             this.ClientSize = new System.Drawing.Size(918, 546);
-            this.Controls.Add(this.button8);
             this.Controls.Add(this.button7);
             this.Controls.Add(this.button6);
             this.Controls.Add(this.button5);
@@ -198,7 +185,6 @@
         private System.Windows.Forms.Button button5;
         private System.Windows.Forms.Button button6;
         private System.Windows.Forms.Button button7;
-        private System.Windows.Forms.Button button8;
     }
 }
 

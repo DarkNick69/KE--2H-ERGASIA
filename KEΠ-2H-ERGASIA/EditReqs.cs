@@ -27,10 +27,10 @@ namespace KEΠ_2H_ERGASIA
             
             var request = await DbManager.GetRequest(id);
             
-            if (!request.found)
+            if (request == null)
                 return;
 
-            _request = request.request;
+            _request = request;
             NameTextBox.Text = _request.Name;
             EmailTextBox.Text = _request.Email;
             TelephoneTextBox.Text = _request.PhoneNumber.ToString();

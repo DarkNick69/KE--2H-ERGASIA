@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Data.SQLite;
 using System.Linq;
 using System.Threading.Tasks;
 using Dapper;
+using static KEΠ_2H_ERGASIA.DbManager;
 
 namespace KEΠ_2H_ERGASIA
 {
@@ -52,15 +54,14 @@ namespace KEΠ_2H_ERGASIA
                 request.RequestType, request.Address, request.SubmissionTime });
         }
 
-        public static async Task<(bool found, Request request)> GetRequest(Guid requestId)
+        public static async Task<Request> GetRequest(Guid requestId)
         {
             if (!_initialized)
                 await InitDb();
             
             const string getQuery = @"SELECT * FROM Requests WHERE FormId = @FormId";
             
-            var result = await Conn.QuerySingleOrDefaultAsync<Request>(getQuery, new { FormId = requestId.ToString() });
-            return (result != null, result);
+            return await Conn.QuerySingleOrDefaultAsync<Request>(getQuery, new { FormId = requestId.ToString() });
         }
 
         public static async Task<bool> DeleteRequest(Guid id)
@@ -85,6 +86,29 @@ namespace KEΠ_2H_ERGASIA
                     FormId = request.FormId.ToString(), request.Name, request.Email, request.PhoneNumber, request.Birthday, request.RequestType,
                     request.Address
                 });
+        }
+
+        public static async Task<IEnumerable<Request>> GetAllRequests()
+        {
+            if (!_initialized)
+                await InitDb();
+
+            const string query = @"SELECT * FROM Requests";
+
+            return await Conn.QueryAsync<Request>(query);
+        }
+
+        public static async Task<IEnumerable<Request>> GetRequestsByName(string name)
+        {
+            if (!_initialized)
+                await InitDb();
+
+            if (name == string.Empty)
+                return new List<Request> { };
+
+            const string query = @"SELECT * FROM Requests WHERE Name = @Name";
+
+            return await Conn.QueryAsync<Request>(query,new { Name = name });
         }
 
         public sealed class Request
@@ -120,6 +144,13 @@ namespace KEΠ_2H_ERGASIA
                 RequestType = requestType;
                 Address = address;
                 SubmissionTime = submissionTime;
+            }
+            public override string ToString()
+            {
+                return $"ID: {FormId}\nΌνομα: {Name}\n" +
+                $"Email: {Email}\nΤηλέφωνο: {PhoneNumber}\n" +
+                $"Ημερομηνία γέννησης: {Birthday}\nΕίδος: {RequestType}\nΔιεύθυνση: {Address}\n" +
+                $"Ώρα δήλωσης: {SubmissionTime:dd/MM/yy/HH:MM}";
             }
         }
     }

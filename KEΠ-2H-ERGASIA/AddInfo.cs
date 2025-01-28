@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text.RegularExpressions;
 using System.Windows.Forms;
 
 namespace KEΠ_2H_ERGASIA
@@ -6,6 +7,8 @@ namespace KEΠ_2H_ERGASIA
     public partial class AddInfo : Form
     {
         private Guid _id = Guid.NewGuid();
+
+        private Regex _emailRegex = new Regex(@".+@.+\..+");
         public AddInfo()
         {
             InitializeComponent();
@@ -23,17 +26,16 @@ namespace KEΠ_2H_ERGASIA
         private async void button1_Click(object sender, EventArgs e)
         {
             button1.Enabled = false;
-            if (NameTextBox.Text == String.Empty || EmailTextBox.Text == String.Empty ||
+            if (NameTextBox.Text == String.Empty || EmailTextBox.Text == String.Empty || !_emailRegex.IsMatch(EmailTextBox.Text) ||
                 PhoneTextBox.Text == String.Empty
                 || !long.TryParse(PhoneTextBox.Text, out var phoneNumber) || phoneNumber > 9_999_999_999 ||
                 phoneNumber < 1_000_000_000 || BirthdayTextBox.Text == String.Empty ||
                 TypeTextBox.Text == String.Empty || AddressTextbox.Text == String.Empty)
             {
+                MessageBox.Show("Τα στοιχεία εγγραφής είναι λάθος. Παρακαλώ συμπληρώστε ξανά.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 button1.Enabled = true;
                 return;
             }
-
-            _inserting = true;
 
             var request = new DbManager.Request(
                 _id,
@@ -46,7 +48,9 @@ namespace KEΠ_2H_ERGASIA
                 SubmissionTimeTextBox.Text);
 
             await DbManager.InsertRequest(request);
-            
+            MessageBox.Show("Τα στοιχεία συμπληρώθηκαν επιτυχώς.", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+
             Close();
         }
 
