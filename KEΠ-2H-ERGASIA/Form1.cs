@@ -15,6 +15,7 @@ namespace KEΠ_2H_ERGASIA
         public Main()
         {
             InitializeComponent();
+            QuestPDF.Settings.License = QuestPDF.Infrastructure.LicenseType.Community;
         }
 
         private void button5_Click(object sender, EventArgs e)

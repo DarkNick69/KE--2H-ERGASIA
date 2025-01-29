@@ -1,14 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
+﻿using QuestPDF.Fluent;
+using QuestPDF.Infrastructure;
+using QuestPDF.Helpers;
+using System;
 using System.IO;
-using System.Linq;
-using System.Net.Cache;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
+using QuestPDF.Previewer;
+using QuestPDF.Companion;
 
 namespace KEΠ_2H_ERGASIA
 {
@@ -54,21 +51,49 @@ namespace KEΠ_2H_ERGASIA
             }
             SaveFileDialog fileDialog = new SaveFileDialog();
 
-            fileDialog.Filter = "txt files (*.txt)|*.txt";
+            fileDialog.Filter = "txt files (*.txt)|*.txt|pdf files (*.pdf)|*.pdf";
             fileDialog.FilterIndex = 1;
             fileDialog.RestoreDirectory = true;
 
             if (fileDialog.ShowDialog() == DialogResult.OK)
             {
                 Stream file;
-                if ((file = fileDialog.OpenFile()) != null)
+
+                if (fileDialog.FileName.EndsWith(".pdf"))
                 {
-                    var writer = new StreamWriter(file);
-                    writer.Write(richTextBox1.Text);
-                    writer.Dispose();
+                    WritePdf(fileDialog.FileName);
+                } else if ((file = fileDialog.OpenFile()) != null)
+                {
+                        WriteTxt(file);
+                        file.Close();
                 }
             }
             button3.Enabled = true;
+        }
+
+        private void WritePdf(string file)
+        {
+            Document.Create(container =>
+            {
+                container.Page(page =>
+                {
+                    page.Size(PageSizes.A4);
+                    page.Margin(1, Unit.Centimetre);
+                    page.PageColor(Colors.White);
+                    page.DefaultTextStyle(x => x.FontSize(16));
+
+                    page.Content().Column(x =>
+                    {
+                        x.Item().Text(richTextBox1.Text);
+                    });
+                });
+
+            }).GeneratePdf(file);
+        }
+        private void WriteTxt(Stream file)
+        {
+            var writer = new StreamWriter(file);
+            writer.Write(richTextBox1.Text);
         }
     }
 }
