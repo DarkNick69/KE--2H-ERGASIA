@@ -57,6 +57,9 @@ namespace KEΠ_2H_ERGASIA
             } else
             {
                 requests = await DbManager.GetRequestsByName(textBox1.Text);
+
+                if (requests.Count() == 0)
+                    MessageBox.Show("Το όνομα που αναζητείτε είναι λάθος. Παρακαλώ συμπληρώστε ξανά.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
             richTextBox1.Text = string.Empty;
@@ -64,7 +67,7 @@ namespace KEΠ_2H_ERGASIA
             foreach (var request in requests)
             {
                 richTextBox1.Text += request.ToString();
-                richTextBox1.Text += "\n-----\n";
+                richTextBox1.Text += "\n------------------\n";
             }
         }
     }

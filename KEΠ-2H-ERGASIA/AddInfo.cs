@@ -23,8 +23,6 @@ namespace KEΠ_2H_ERGASIA
         {
             this.Close();
         }
-
-
         private async void button1_Click(object sender, EventArgs e)
         {
             button1.Enabled = false;
@@ -54,11 +52,6 @@ namespace KEΠ_2H_ERGASIA
 
 
             Close();
-        }
-
-        private void PhoneTextBox_TextChanged(object sender, EventArgs e)
-        {
-
         }
     }
 }

@@ -82,9 +82,9 @@
             this.button1.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.button1.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.button1.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.button1.Location = new System.Drawing.Point(610, 223);
+            this.button1.Location = new System.Drawing.Point(500, 273);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(125, 38);
+            this.button1.Size = new System.Drawing.Size(181, 63);
             this.button1.TabIndex = 3;
             this.button1.Text = "Search";
             this.button1.UseVisualStyleBackColor = false;
@@ -104,13 +104,13 @@
             // 
             this.label2.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(519, 148);
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Location = new System.Drawing.Point(554, 114);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(307, 44);
+            this.label2.Size = new System.Drawing.Size(362, 64);
             this.label2.TabIndex = 6;
-            this.label2.Text = "Παρακαλώ συμπληρώστε στην μορφή\r\nΟΝΟΜΑ ΕΠΩΝΥΜΟ";
-            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.label2.Text = "Παρακαλώ συμπληρώστε το\r\nονοματεπώνυμο του πολίτη";
+            this.label2.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
             // button2
             // 
@@ -128,9 +128,9 @@
             // textBox1
             // 
             this.textBox1.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.textBox1.Location = new System.Drawing.Point(575, 195);
+            this.textBox1.Location = new System.Drawing.Point(605, 192);
             this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(195, 22);
+            this.textBox1.Size = new System.Drawing.Size(261, 22);
             this.textBox1.TabIndex = 5;
             // 
             // ShowReqs

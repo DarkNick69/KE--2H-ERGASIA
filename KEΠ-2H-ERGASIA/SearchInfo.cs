@@ -28,7 +28,10 @@ namespace KEΠ_2H_ERGASIA
         private async void button1_Click(object sender, EventArgs e)
         {
             if (!Guid.TryParse(textBox1.Text, out var id))
-                return;
+            {
+                MessageBox.Show("Το στοιχείο ID είναι λάθος. Παρακαλώ συμπληρώστε ξανά.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return; 
+            }
 
             var request = await DbManager.GetRequest(id);
 

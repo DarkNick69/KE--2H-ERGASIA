@@ -25,8 +25,14 @@ namespace KEΠ_2H_ERGASIA
 
         private async void button1_Click(object sender, EventArgs e)
         {
-            if (!Guid.TryParse(textBox1.Text, out var phoneNumber) || !await DbManager.DeleteRequest(phoneNumber))
+            if (!Guid.TryParse(textBox1.Text, out var id) || !await DbManager.DeleteRequest(id))
+            {
+                MessageBox.Show("Το στοιχείο ID είναι λάθος. Παρακαλώ συμπληρώστε ξανά.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
+            }
+
+            MessageBox.Show("Τα στοιχεία διαγράφησαν επιτυχώς.", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
             Close();
         }
     }
